@@ -1,0 +1,5 @@
+const GAME_SETTINGS = {
+  ERRORS_COUNT: 3,
+};
+
+export {GAME_SETTINGS};

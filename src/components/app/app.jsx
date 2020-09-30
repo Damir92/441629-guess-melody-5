@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WelcomeScreen from '../welcome-screen/welcome-screen';
 
-const App = (props) => {
-  const {
-    errorsCount,
-  } = props;
-
+const App = ({errorsCount}) => {
   return <WelcomeScreen
     errorsCount={errorsCount}
   />;

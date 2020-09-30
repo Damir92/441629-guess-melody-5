@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app/app';
 
-const Settings = {
-  ERRORS_COUNT: 3,
-};
+import {GAME_SETTINGS} from './const/game-settings';
+
+import App from './components/app/app';
 
 ReactDOM.render(
     <App
-      errorsCount={ Settings.ERRORS_COUNT }
+      errorsCount={ GAME_SETTINGS.ERRORS_COUNT }
     />,
     document.querySelector(`#root`)
 );
