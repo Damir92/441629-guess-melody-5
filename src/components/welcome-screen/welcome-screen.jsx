@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 
-let WelcomeScreen = ({errorsCount}) => {
+const WelcomeScreen = ({errorsCount}) => {
   return (
     <section className="welcome">
       <div className="welcome__logo">
