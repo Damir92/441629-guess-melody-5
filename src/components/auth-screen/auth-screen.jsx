@@ -10,11 +10,11 @@ const AuthScreen = () => {
       <p className="login__text">Хотите узнать свой результат? Представтесь!</p>
       <form className="login__form" action="">
         <p className="login__field">
-          <label className="login__label" forHtml="name">Логин</label>
+          <label className="login__label" forhtml="name">Логин</label>
           <input className="login__input" type="text" name="name" id="name" />
         </p>
         <p className="login__field">
-          <label className="login__label" forHtml="password">Пароль</label>
+          <label className="login__label" forhtml="password">Пароль</label>
           <input className="login__input" type="text" name="password" id="password" />
           <span className="login__error">Неверный пароль</span>
         </p>

@@ -9,28 +9,28 @@ import GenreQuestionScreen from '../genre-question-screen/genre-question-screen'
 import WelcomeScreen from '../welcome-screen/welcome-screen';
 import WinScreen from '../win-screen/win-screen';
 
+import {ROUTES} from '../../const/routes';
+
 const App = ({errorsCount}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <WelcomeScreen
-            errorsCount={errorsCount}
-          />
+        <Route exact path={ROUTES.MAIN}>
+          <WelcomeScreen errorsCount={errorsCount} />
         </Route>
-        <Route exact path="/dev-artist">
+        <Route path={ROUTES.ARTIST}>
           <ArtistQuestionScreen />
         </Route>
-        <Route exact path="/dev-genre">
+        <Route path={ROUTES.GENRE}>
           <GenreQuestionScreen />
         </Route>
-        <Route exact path="/login">
+        <Route path={ROUTES.LOGIN}>
           <AuthScreen />
         </Route>
-        <Route exact path="/result">
+        <Route path={ROUTES.RESULT}>
           <WinScreen />
         </Route>
-        <Route exact path="/lose">
+        <Route path={ROUTES.LOSE}>
           <GameOverScreen />
         </Route>
       </Switch>
