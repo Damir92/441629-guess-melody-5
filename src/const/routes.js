@@ -1,4 +1,4 @@
-const ROUTES = {
+export const Routes = {
   MAIN: `/`,
   ARTIST: `/dev-artist`,
   GENRE: `/dev-genre`,
@@ -6,5 +6,3 @@ const ROUTES = {
   RESULT: `/result`,
   LOSE: `/lose`,
 };
-
-export {ROUTES};
