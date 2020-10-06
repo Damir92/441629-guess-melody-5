@@ -1,5 +1,8 @@
-const GAME_SETTINGS = {
+export const GameSettings = {
   ERRORS_COUNT: 3,
 };
 
-export {GAME_SETTINGS};
+export const GameType = {
+  ARTIST: `artist`,
+  GENRE: `genre`,
+};
