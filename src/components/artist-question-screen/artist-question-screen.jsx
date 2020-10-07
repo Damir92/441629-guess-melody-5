@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {artistQuestionPropTypes} from '../../prop-types';
 
-const ArtistQuestionScreen = ({onAnswer, question}) => {
+const ArtistQuestionScreen = ({onAnswer, question = {}}) => {
   const {
     answers,
     song,
