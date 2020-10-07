@@ -12,9 +12,7 @@ import WinScreen from '../win-screen/win-screen';
 
 import {Routes} from '../../const/routes';
 
-const App = ({errorsCount, questions}) => {
-  const [genreQuestion, artistQuestion] = questions;
-
+const App = ({errorsCount, questions = []}) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -32,14 +30,14 @@ const App = ({errorsCount, questions}) => {
 
         <Route path={Routes.ARTIST}>
           <ArtistQuestionScreen
-            question={artistQuestion}
+            question={questions[1]}
             onAnswer={Function.prototype}
           />
         </Route>
 
         <Route path={Routes.GENRE}>
           <GenreQuestionScreen
-            question={genreQuestion}
+            question={questions[0]}
             onAnswer={Function.prototype}
           />
         </Route>
