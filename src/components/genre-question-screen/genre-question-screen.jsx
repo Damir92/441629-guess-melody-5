@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 
 import {genreQuestionPropTypes} from '../../prop-types';
 
-const GenreQuestionScreen = ({onAnswer, question}) => {
+const GenreQuestionScreen = ({onAnswer, question = {}}) => {
 
   const {
     answers,
     genre,
   } = question;
 
-  const [userAnswers, setUserAnswers] = useState(answers.reduce((res, _, index) => {
-    res[index] = false;
-    return res;
-  }, {}));
+  const [userAnswers, setUserAnswers] = useState({});
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
@@ -75,7 +72,7 @@ const GenreQuestionScreen = ({onAnswer, question}) => {
                   name="answer"
                   value={`answer-${i}`}
                   id={`answer-${i}`}
-                  checked={userAnswers[i]}
+                  checked={!!userAnswers[i]}
                   onChange={(evt) => {
                     handleInputChange(evt, i);
                   }}

@@ -9,16 +9,16 @@ import {genreQuestionPropTypes, artistQuestionPropTypes} from '../../prop-types'
 
 import {GameType} from '../../const/game-settings';
 
-const GameScreen = ({questions}) => {
+const GameScreen = ({questions = []}) => {
   const [step, setStep] = useState(0);
 
-  if (!questions || step >= questions.length || !questions[step]) {
+  const question = questions && questions[step];
+
+  if (!questions || step >= questions.length || !question) {
     return (
       <Redirect to="/" />
     );
   }
-
-  const question = questions[step];
 
   const incrementStep = () => {
     setStep((prevStep) => (prevStep + 1));
