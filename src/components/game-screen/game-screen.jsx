@@ -5,18 +5,24 @@ import PropTypes from 'prop-types';
 import ArtistQuestionScreen from '../artist-question-screen/artist-question-screen';
 import GenreQuestionScreen from '../genre-question-screen/genre-question-screen';
 
+import {genreQuestionPropTypes, artistQuestionPropTypes} from '../../prop-types';
+
 import {GameType} from '../../const/game-settings';
 
 const GameScreen = ({questions}) => {
   const [step, setStep] = useState(0);
 
-  const question = questions[step];
-
-  if (step >= questions.length || !question) {
+  if (!questions || step >= questions.length || !questions[step]) {
     return (
       <Redirect to="/" />
     );
   }
+
+  const question = questions[step];
+
+  const incrementStep = () => {
+    setStep((prevStep) => (prevStep + 1));
+  };
 
   switch (question.type) {
     case GameType.ARTIST:
@@ -24,7 +30,7 @@ const GameScreen = ({questions}) => {
         <ArtistQuestionScreen
           question={question}
           onAnswer={() => {
-            setStep((prevStep) => (prevStep + 1));
+            incrementStep();
           }}
         />
       );
@@ -33,7 +39,7 @@ const GameScreen = ({questions}) => {
         <GenreQuestionScreen
           question={question}
           onAnswer={() => {
-            setStep((prevStep) => (prevStep + 1));
+            incrementStep();
           }}
         />
       );
@@ -43,7 +49,12 @@ const GameScreen = ({questions}) => {
 };
 
 GameScreen.propTypes = {
-  questions: PropTypes.array.isRequired,
+  questions: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.shape(artistQuestionPropTypes).isRequired,
+        PropTypes.shape(genreQuestionPropTypes).isRequired,
+      ]).isRequired
+  ).isRequired,
 };
 
 export default GameScreen;

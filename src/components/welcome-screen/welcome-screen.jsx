@@ -1,7 +1,14 @@
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 
-const WelcomeScreen = ({errorsCount, onPlayButtonClick}) => {
+import {Routes} from '../../const/routes';
+
+const WelcomeScreen = ({errorsCount, history}) => {
+
+  const handlePlayButtonClick = () => {
+    history.push(Routes.GAME);
+  };
+
   return (
     <section className="welcome">
       <div className="welcome__logo">
@@ -9,7 +16,7 @@ const WelcomeScreen = ({errorsCount, onPlayButtonClick}) => {
       </div>
       <button
         className="welcome__button"
-        onClick={onPlayButtonClick}
+        onClick={handlePlayButtonClick}
       >
         <span className="visually-hidden">Начать игру</span>
       </button>
@@ -26,7 +33,7 @@ const WelcomeScreen = ({errorsCount, onPlayButtonClick}) => {
 
 WelcomeScreen.propTypes = {
   errorsCount: PropTypes.number.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default memo(WelcomeScreen);

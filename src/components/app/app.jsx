@@ -25,7 +25,7 @@ const App = ({errorsCount, questions}) => {
           render={({history}) => (
             <WelcomeScreen
               errorsCount={errorsCount}
-              onPlayButtonClick={() => history.push(Routes.GAME)}
+              history={history}
             />
           )}
         />
@@ -33,14 +33,14 @@ const App = ({errorsCount, questions}) => {
         <Route path={Routes.ARTIST}>
           <ArtistQuestionScreen
             question={artistQuestion}
-            onAnswer={() => {}}
+            onAnswer={Function.prototype}
           />
         </Route>
 
         <Route path={Routes.GENRE}>
           <GenreQuestionScreen
             question={genreQuestion}
-            onAnswer={() => {}}
+            onAnswer={Function.prototype}
           />
         </Route>
 

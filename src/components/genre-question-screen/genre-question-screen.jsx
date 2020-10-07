@@ -1,16 +1,37 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-import {GameType} from '../../const/game-settings';
+import {genreQuestionPropTypes} from '../../prop-types';
 
 const GenreQuestionScreen = ({onAnswer, question}) => {
-
-  const [userAnswers, setUserAnswers] = useState([false, false, false, false]);
 
   const {
     answers,
     genre,
   } = question;
+
+  const [userAnswers, setUserAnswers] = useState(answers.reduce((res, _, index) => {
+    res[index] = false;
+    return res;
+  }, {}));
+
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+    onAnswer({
+      question,
+      userAnswers,
+    });
+  };
+
+  const handleInputChange = (evt, i) => {
+    const value = evt.target.checked;
+
+    setUserAnswers((prevUserAnswers) => {
+      const currUserAnswers = Object.assign({}, prevUserAnswers);
+      currUserAnswers[i] = value;
+      return currUserAnswers;
+    });
+  };
 
   return (
     <section className="game game--genre">
@@ -35,10 +56,7 @@ const GenreQuestionScreen = ({onAnswer, question}) => {
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form
           className="game__tracks"
-          onSubmit={(evt) => {
-            evt.preventDefault();
-            onAnswer(question, userAnswers);
-          }}
+          onSubmit={handleFormSubmit}
         >
           {answers.map((answer, i) => (
             <div
@@ -59,11 +77,7 @@ const GenreQuestionScreen = ({onAnswer, question}) => {
                   id={`answer-${i}`}
                   checked={userAnswers[i]}
                   onChange={(evt) => {
-                    const value = evt.target.checked;
-
-                    setUserAnswers((prevUserAnswers) => [
-                      ...prevUserAnswers.slice(0, i), value, ...prevUserAnswers.slice(i + 1)
-                    ]);
+                    handleInputChange(evt, i);
                   }}
                 />
                 <label
@@ -85,14 +99,7 @@ const GenreQuestionScreen = ({onAnswer, question}) => {
 
 GenreQuestionScreen.propTypes = {
   onAnswer: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-    })).isRequired,
-    genre: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
-  }).isRequired,
+  question: PropTypes.shape(genreQuestionPropTypes).isRequired,
 };
 
 export default GenreQuestionScreen;
