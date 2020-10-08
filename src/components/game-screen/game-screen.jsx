@@ -12,9 +12,9 @@ import {GameType} from '../../const/game-settings';
 const GameScreen = ({questions = []}) => {
   const [step, setStep] = useState(0);
 
-  const question = questions && questions[step];
+  const question = questions[step] || {};
 
-  if (!questions || step >= questions.length || !question) {
+  if (!questions.length || !question) {
     return (
       <Redirect to="/" />
     );
