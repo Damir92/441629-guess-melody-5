@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
+import AudioPlayer from '../audio-player/audio-player';
+
 import {genreQuestionPropTypes} from '../../prop-types';
 
 const GenreQuestionScreen = ({onAnswer, question = {}}) => {
@@ -11,6 +13,7 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
   } = question;
 
   const [userAnswers, setUserAnswers] = useState({});
+  const [activePlayer, setActivePlayer] = useState(0);
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
@@ -28,6 +31,10 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
       currUserAnswers[i] = value;
       return currUserAnswers;
     });
+  };
+
+  const handlePlayButtonClick = (index) => {
+    setActivePlayer((prev) => prev === index ? null : index);
   };
 
   return (
@@ -60,12 +67,13 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
               key={`${i}-${answer.src}`}
               className="track"
             >
-              <button className="track__button track__button--play" type="button"></button>
-              <div className="track__status">
-                <audio
-                  src={answer.src}
-                />
-              </div>
+              <AudioPlayer
+                isPlaying={i === activePlayer}
+                onPlayButtonClick={() => {
+                  handlePlayButtonClick(i);
+                }}
+                src={answer.src}
+              />
               <div className="game__answer">
                 <input
                   className="game__input visually-hidden" type="checkbox"
