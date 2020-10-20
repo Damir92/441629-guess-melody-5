@@ -60,7 +60,10 @@ const ArtistQuestionScreen = ({onAnswer, question = {}, children}) => {
                 id={`answer-${i}`}
                 onChange={(evt) => {
                   evt.preventDefault();
-                  onAnswer(question, answer);
+                  onAnswer({
+                    question,
+                    answer,
+                  });
                 }}
               />
               <label

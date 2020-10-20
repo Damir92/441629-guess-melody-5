@@ -27,6 +27,10 @@ const AudioPlayer = ({isPlaying, src, onPlayButtonClick}) => {
     }
   }, [playing]);
 
+  useEffect(() => {
+    setPlaying(isPlaying);
+  }, [isPlaying]);
+
   const handleButtonClick = () => {
     setPlaying((prev) => !prev);
     onPlayButtonClick();

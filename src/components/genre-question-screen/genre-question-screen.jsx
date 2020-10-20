@@ -19,7 +19,7 @@ const GenreQuestionScreen = ({onAnswer, question = {}, children}) => {
     evt.preventDefault();
     onAnswer({
       question,
-      userAnswers,
+      answer: userAnswers,
     });
   };
 
