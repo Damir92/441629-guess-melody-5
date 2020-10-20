@@ -5,7 +5,7 @@ import AudioPlayer from '../audio-player/audio-player';
 
 import {artistQuestionPropTypes} from '../../prop-types';
 
-const ArtistQuestionScreen = ({onAnswer, question = {}}) => {
+const ArtistQuestionScreen = ({onAnswer, question = {}, children}) => {
   const [playing, setPlaying] = useState(true);
 
   const {
@@ -29,11 +29,8 @@ const ArtistQuestionScreen = ({onAnswer, question = {}}) => {
           <circle className="timer__line" cx="390" cy="390" r="370" style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
         </svg>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        {children}
+
       </header>
 
       <section className="game__screen">
@@ -87,6 +84,7 @@ const ArtistQuestionScreen = ({onAnswer, question = {}}) => {
 };
 
 ArtistQuestionScreen.propTypes = {
+  children: PropTypes.element.isRequired,
   onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape(artistQuestionPropTypes).isRequired,
 };

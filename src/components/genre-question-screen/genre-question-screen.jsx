@@ -5,7 +5,7 @@ import AudioPlayer from '../audio-player/audio-player';
 
 import {genreQuestionPropTypes} from '../../prop-types';
 
-const GenreQuestionScreen = ({onAnswer, question = {}}) => {
+const GenreQuestionScreen = ({onAnswer, question = {}, children}) => {
 
   const {
     answers,
@@ -49,11 +49,8 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
           <circle className="timer__line" cx="390" cy="390" r="370" style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}/>
         </svg>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        {children}
+
       </header>
 
       <section className="game__screen">
@@ -103,6 +100,7 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
 };
 
 GenreQuestionScreen.propTypes = {
+  children: PropTypes.element.isRequired,
   onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape(genreQuestionPropTypes).isRequired,
 };
