@@ -6,7 +6,7 @@ const Mistakes = ({count = 0}) => {
 
   return (
     <div className="game__mistakes">
-      {mistakes.map((it, i) => <div key={`mistake-${i}`} className="wrong" />)}
+      {mistakes.map((_, i) => <div key={`mistake-${i}`} className="wrong" />)}
     </div>
   );
 };

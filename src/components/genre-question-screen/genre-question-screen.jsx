@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import AudioPlayer from '../audio-player/audio-player';
+import Mistakes from '../mistakes/mistakes';
 
 import {genreQuestionPropTypes} from '../../prop-types';
 
-const GenreQuestionScreen = ({onAnswer, question = {}, children}) => {
+const GenreQuestionScreen = ({onAnswer, question = {}, mistakes = 0}) => {
 
   const {
     answers,
@@ -49,7 +50,9 @@ const GenreQuestionScreen = ({onAnswer, question = {}, children}) => {
           <circle className="timer__line" cx="390" cy="390" r="370" style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}/>
         </svg>
 
-        {children}
+        <Mistakes
+          count={mistakes}
+        />
 
       </header>
 
@@ -100,7 +103,7 @@ const GenreQuestionScreen = ({onAnswer, question = {}, children}) => {
 };
 
 GenreQuestionScreen.propTypes = {
-  children: PropTypes.element.isRequired,
+  mistakes: PropTypes.number.isRequired,
   onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape(genreQuestionPropTypes).isRequired,
 };

@@ -7,11 +7,12 @@ import {ActionCreator} from '../../store/action';
 
 import ArtistQuestionScreen from '../artist-question-screen/artist-question-screen';
 import GenreQuestionScreen from '../genre-question-screen/genre-question-screen';
-import Mistakes from '../mistakes/mistakes';
 
 import {genreQuestionPropTypes, artistQuestionPropTypes} from '../../prop-types';
 
 import {GameType} from '../../const/game-settings';
+import {isArtistAnswerCorrect, isGenreAnswerCorrect} from '../../game';
+// import {}
 
 const GameScreen = (props) => {
   const {
@@ -37,19 +38,17 @@ const GameScreen = (props) => {
       return (
         <ArtistQuestionScreen
           question={question}
+          mistakes={mistakes}
           onAnswer={onUserAnswer}
-        >
-          <Mistakes count={mistakes}/>
-        </ArtistQuestionScreen>
+        />
       );
     case GameType.GENRE:
       return (
         <GenreQuestionScreen
           question={question}
+          mistakes={mistakes}
           onAnswer={onUserAnswer}
-        >
-          <Mistakes count={mistakes}/>
-        </GenreQuestionScreen>
+        />
       );
   }
 
@@ -69,20 +68,28 @@ GameScreen.propTypes = {
   mistakes: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  step: state.step,
-  mistakes: state.mistakes,
-  questions: state.questions,
-});
+const mapStateToProps = ({step, mistakes, questions}) => ({step, mistakes, questions});
 
 const mapDispatchToProps = (dispatch) => ({
-  onUserAnswer(stepAnswer) {
+  onUserAnswer: ({question, answer}) => {
+    let asnwerIsCorrect = false;
+
+    switch (question.type) {
+      case GameType.ARTIST:
+        asnwerIsCorrect = isArtistAnswerCorrect(question, answer);
+        break;
+
+      case GameType.GENRE:
+        asnwerIsCorrect = isGenreAnswerCorrect(question, answer);
+        break;
+    }
+
     dispatch(ActionCreator.incrementStep());
-    dispatch(ActionCreator.incrementMistake(stepAnswer));
+    if (!asnwerIsCorrect) {
+      dispatch(ActionCreator.incrementMistake());
+    }
   },
-  resetGame() {
-    dispatch(ActionCreator.resetGame());
-  },
+  resetGame: () => dispatch(ActionCreator.resetGame()),
 });
 
 export {GameScreen};

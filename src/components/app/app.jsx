@@ -20,7 +20,7 @@ const App = () => {
           path={Routes.MAIN}
           render={({history}) => (
             <WelcomeScreen
-              errorsCount={GameSettings.ERRORS_COUNT}
+              maxMistakes={GameSettings.MAX_MISTAKES}
               history={history}
             />
           )}
