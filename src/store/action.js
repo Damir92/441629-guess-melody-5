@@ -4,14 +4,14 @@ export const ActionType = {
   RESET_GAME: `RESET_GAME`,
 };
 
-export const ActionCreator = {
-  incrementStep: () => ({
-    type: ActionType.INCREMENT_STEP,
-  }),
-  resetGame: () => ({
-    type: ActionType.RESET_GAME,
-  }),
-  incrementMistake: () => ({
-    type: ActionType.INCREMENT_MISTAKES,
-  }),
-};
+export const incrementStepAction = () => ({
+  type: ActionType.INCREMENT_STEP,
+});
+
+export const resetGameAction = () => ({
+  type: ActionType.RESET_GAME,
+});
+
+export const incrementMistakeAction = () => ({
+  type: ActionType.INCREMENT_MISTAKES,
+});

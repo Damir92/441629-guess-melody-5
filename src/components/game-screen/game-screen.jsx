@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../store/action';
+import {incrementMistakeAction, incrementStepAction, resetGameAction} from '../../store/action';
 
 import ArtistQuestionScreen from '../artist-question-screen/artist-question-screen';
 import GenreQuestionScreen from '../genre-question-screen/genre-question-screen';
@@ -83,12 +83,12 @@ const mapDispatchToProps = (dispatch) => ({
         break;
     }
 
-    dispatch(ActionCreator.incrementStep());
+    dispatch(incrementStepAction());
     if (!asnwerIsCorrect) {
-      dispatch(ActionCreator.incrementMistake());
+      dispatch(incrementMistakeAction());
     }
   },
-  resetGame: () => dispatch(ActionCreator.resetGame()),
+  resetGame: () => dispatch(resetGameAction()),
 });
 
 export {GameScreen};
