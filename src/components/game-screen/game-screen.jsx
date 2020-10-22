@@ -12,7 +12,6 @@ import {genreQuestionPropTypes, artistQuestionPropTypes} from '../../prop-types'
 
 import {GameType} from '../../const/game-settings';
 import {isArtistAnswerCorrect, isGenreAnswerCorrect} from '../../game';
-// import {}
 
 const GameScreen = (props) => {
   const {
