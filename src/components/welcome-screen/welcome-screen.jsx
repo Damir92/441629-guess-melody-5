@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Routes} from '../../const/routes';
 
-const WelcomeScreen = ({errorsCount, history}) => {
+const WelcomeScreen = ({maxMistakes, history}) => {
 
   const handlePlayButtonClick = () => {
     history.push(Routes.GAME);
@@ -24,7 +24,7 @@ const WelcomeScreen = ({errorsCount, history}) => {
       <p className="welcome__text">Правила просты:</p>
       <ul className="welcome__rules-list">
         <li>Нужно ответить на все вопросы.</li>
-        <li>Можно допустить { errorsCount } ошибки.</li>
+        <li>Можно допустить { maxMistakes } ошибки.</li>
       </ul>
       <p className="welcome__text">Удачи!</p>
     </section>
@@ -32,7 +32,7 @@ const WelcomeScreen = ({errorsCount, history}) => {
 };
 
 WelcomeScreen.propTypes = {
-  errorsCount: PropTypes.number.isRequired,
+  maxMistakes: PropTypes.number.isRequired,
   history: PropTypes.object.isRequired,
 };
 

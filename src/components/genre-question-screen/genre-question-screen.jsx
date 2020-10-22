@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import AudioPlayer from '../audio-player/audio-player';
+import Mistakes from '../mistakes/mistakes';
 
 import {genreQuestionPropTypes} from '../../prop-types';
 
-const GenreQuestionScreen = ({onAnswer, question = {}}) => {
+const GenreQuestionScreen = ({onAnswer, question = {}, mistakes = 0}) => {
 
   const {
     answers,
@@ -19,7 +20,7 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
     evt.preventDefault();
     onAnswer({
       question,
-      userAnswers,
+      answer: userAnswers,
     });
   };
 
@@ -49,11 +50,10 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
           <circle className="timer__line" cx="390" cy="390" r="370" style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}/>
         </svg>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        <Mistakes
+          count={mistakes}
+        />
+
       </header>
 
       <section className="game__screen">
@@ -103,6 +103,7 @@ const GenreQuestionScreen = ({onAnswer, question = {}}) => {
 };
 
 GenreQuestionScreen.propTypes = {
+  mistakes: PropTypes.number.isRequired,
   onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape(genreQuestionPropTypes).isRequired,
 };
