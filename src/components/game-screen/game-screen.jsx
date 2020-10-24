@@ -8,10 +8,17 @@ import {incrementMistakeAction, incrementStepAction, resetGameAction} from '../.
 import ArtistQuestionScreen from '../artist-question-screen/artist-question-screen';
 import GenreQuestionScreen from '../genre-question-screen/genre-question-screen';
 
+import withActivePlayer from '../../hocs/with-active-player/with-active-player';
+import withUserAnswer from '../../hocs/with-user-answer/with-user-answer';
+
 import {genreQuestionPropTypes, artistQuestionPropTypes} from '../../prop-types';
 
-import {GameType} from '../../const/game-settings';
+import {GameType, GameSettings} from '../../const/game-settings';
 import {isArtistAnswerCorrect, isGenreAnswerCorrect} from '../../game';
+import {Routes} from '../../const/routes';
+
+const ArtistQuestionScreenWrapped = withActivePlayer(ArtistQuestionScreen);
+const GenreQuestionScreenWrapped = withActivePlayer(withUserAnswer(GenreQuestionScreen));
 
 const GameScreen = (props) => {
   const {
@@ -24,18 +31,30 @@ const GameScreen = (props) => {
 
   const question = questions[step] || {};
 
-  if (!questions.length || !question) {
+  if (!questions.length) {
     resetGame();
 
     return (
-      <Redirect to="/" />
+      <Redirect to={Routes.MAIN} />
+    );
+  }
+
+  if (mistakes >= GameSettings.MAX_MISTAKES) {
+    return (
+      <Redirect to={Routes.LOSE} />
+    );
+  }
+
+  if (step >= questions.length || !question) {
+    return (
+      <Redirect to={Routes.RESULT} />
     );
   }
 
   switch (question.type) {
     case GameType.ARTIST:
       return (
-        <ArtistQuestionScreen
+        <ArtistQuestionScreenWrapped
           question={question}
           mistakes={mistakes}
           onAnswer={onUserAnswer}
@@ -43,7 +62,7 @@ const GameScreen = (props) => {
       );
     case GameType.GENRE:
       return (
-        <GenreQuestionScreen
+        <GenreQuestionScreenWrapped
           question={question}
           mistakes={mistakes}
           onAnswer={onUserAnswer}
@@ -51,7 +70,7 @@ const GameScreen = (props) => {
       );
   }
 
-  return <Redirect to="/" />;
+  return <Redirect to={Routes.MAIN} />;
 };
 
 GameScreen.propTypes = {

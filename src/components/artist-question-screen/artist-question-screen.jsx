@@ -1,22 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import AudioPlayer from '../audio-player/audio-player';
 import Mistakes from '../mistakes/mistakes';
 
 import {artistQuestionPropTypes} from '../../prop-types';
 
-const ArtistQuestionScreen = ({onAnswer, question = {}, mistakes}) => {
-  const [playing, setPlaying] = useState(true);
-
+const ArtistQuestionScreen = ({onAnswer, question = {}, mistakes, renderPlayer}) => {
   const {
     answers,
     song,
   } = question;
-
-  const handlePlayButtonClick = () => {
-    setPlaying((prev) => !prev);
-  };
 
   return (
     <section className="game game--artist">
@@ -40,11 +33,9 @@ const ArtistQuestionScreen = ({onAnswer, question = {}, mistakes}) => {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <AudioPlayer
-              isPlaying={playing}
-              onPlayButtonClick={handlePlayButtonClick}
-              src={song.src}
-            />
+
+            {renderPlayer(song.src, 0)}
+
           </div>
         </div>
 
@@ -93,6 +84,7 @@ ArtistQuestionScreen.propTypes = {
   mistakes: PropTypes.number.isRequired,
   onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape(artistQuestionPropTypes).isRequired,
+  renderPlayer: PropTypes.func.isRequired,
 };
 
 export default ArtistQuestionScreen;

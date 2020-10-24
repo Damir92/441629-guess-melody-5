@@ -1,5 +1,5 @@
 export const GameSettings = {
-  MAX_MISTAKES: 3,
+  MAX_MISTAKES: 1,
 };
 
 export const GameType = {
