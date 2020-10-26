@@ -34,13 +34,9 @@ const App = () => {
           <AuthScreen />
         </Route>
 
-        <Route path={Routes.RESULT}>
-          <WinScreen />
-        </Route>
+        <Route path={Routes.RESULT} component={WinScreen}/>
 
-        <Route path={Routes.LOSE}>
-          <GameOverScreen />
-        </Route>
+        <Route path={Routes.LOSE} component={GameOverScreen}/>
 
       </Switch>
     </BrowserRouter>

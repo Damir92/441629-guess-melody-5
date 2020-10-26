@@ -1,62 +1,27 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const AudioPlayer = ({isPlaying, src, onPlayButtonClick}) => {
-  const [playing, setPlaying] = useState(isPlaying);
-  const [loading, setLoading] = useState(true);
-
-  const audioRef = useRef(null);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-
-    audio.src = src;
-
-    audio.oncanplaythrough = () => setLoading(false);
-
-    return () => {
-      audioRef.current.oncanplaythrough = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (playing) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  }, [playing]);
-
-  useEffect(() => {
-    setPlaying(isPlaying);
-  }, [isPlaying]);
-
-  const handleButtonClick = () => {
-    setPlaying((prev) => !prev);
-    onPlayButtonClick();
-  };
-
+const AudioPlayer = ({isLoading, isPlaying, onPlayButtonClick, children}) => {
   return (
     <>
       <button
-        className={`track__button track__button--${playing ? `pause` : `play`}`}
+        className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
         type="button"
-        disabled={loading}
-        onClick={handleButtonClick}
+        disabled={isLoading}
+        onClick={onPlayButtonClick}
       />
       <div
         className="track__status"
       >
-        <audio
-          autoPlay={playing}
-          ref={audioRef}
-        />
+        {children}
       </div>
     </>
   );
 };
 
 AudioPlayer.propTypes = {
+  children: PropTypes.element.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   src: PropTypes.string.isRequired,

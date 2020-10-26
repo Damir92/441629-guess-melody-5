@@ -1,42 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import AudioPlayer from '../audio-player/audio-player';
 import Mistakes from '../mistakes/mistakes';
+import GenreQuestionItem from '../genre-question-item/genre-question-item';
 
 import {genreQuestionPropTypes} from '../../prop-types';
 
-const GenreQuestionScreen = ({onAnswer, question = {}, mistakes = 0}) => {
+const GenreQuestionScreen = (props) => {
+  const {
+    mistakes = 0,
+    onAnswer,
+    onChange,
+    question = {},
+    renderPlayer,
+    userAnswers,
+  } = props;
 
   const {
     answers,
     genre,
   } = question;
-
-  const [userAnswers, setUserAnswers] = useState({});
-  const [activePlayer, setActivePlayer] = useState(0);
-
-  const handleFormSubmit = (evt) => {
-    evt.preventDefault();
-    onAnswer({
-      question,
-      answer: userAnswers,
-    });
-  };
-
-  const handleInputChange = (evt, i) => {
-    const value = evt.target.checked;
-
-    setUserAnswers((prevUserAnswers) => {
-      const currUserAnswers = Object.assign({}, prevUserAnswers);
-      currUserAnswers[i] = value;
-      return currUserAnswers;
-    });
-  };
-
-  const handlePlayButtonClick = (index) => {
-    setActivePlayer((prev) => prev === index ? null : index);
-  };
 
   return (
     <section className="game game--genre">
@@ -60,39 +43,17 @@ const GenreQuestionScreen = ({onAnswer, question = {}, mistakes = 0}) => {
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form
           className="game__tracks"
-          onSubmit={handleFormSubmit}
+          onSubmit={onAnswer}
         >
           {answers.map((answer, i) => (
-            <div
+            <GenreQuestionItem
               key={`${i}-${answer.src}`}
-              className="track"
-            >
-              <AudioPlayer
-                isPlaying={i === activePlayer}
-                onPlayButtonClick={() => {
-                  handlePlayButtonClick(i);
-                }}
-                src={answer.src}
-              />
-              <div className="game__answer">
-                <input
-                  className="game__input visually-hidden" type="checkbox"
-                  name="answer"
-                  value={`answer-${i}`}
-                  id={`answer-${i}`}
-                  checked={!!userAnswers[i]}
-                  onChange={(evt) => {
-                    handleInputChange(evt, i);
-                  }}
-                />
-                <label
-                  className="game__check"
-                  htmlFor={`answer-${i}`}
-                >
-                  Отметить
-                </label>
-              </div>
-            </div>
+              answer={answer}
+              id={i}
+              onChange={onChange}
+              renderPlayer={renderPlayer}
+              userAnswer={!!userAnswers[i]}
+            />
           ))}
 
           <button className="game__submit button" type="submit">Ответить</button>
@@ -105,7 +66,10 @@ const GenreQuestionScreen = ({onAnswer, question = {}, mistakes = 0}) => {
 GenreQuestionScreen.propTypes = {
   mistakes: PropTypes.number.isRequired,
   onAnswer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   question: PropTypes.shape(genreQuestionPropTypes).isRequired,
+  renderPlayer: PropTypes.func.isRequired,
+  userAnswers: PropTypes.object.isRequired,
 };
 
 export default GenreQuestionScreen;
