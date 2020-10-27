@@ -7,3 +7,8 @@ export const Routes = {
   RESULT: `/result`,
   LOSE: `/lose`,
 };
+
+export const APIRoutes = {
+  QUESTIONS: `/questions`,
+  LOGIN: `/login`,
+};

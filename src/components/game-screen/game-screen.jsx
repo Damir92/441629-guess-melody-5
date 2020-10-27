@@ -55,6 +55,7 @@ const GameScreen = (props) => {
     case GameType.ARTIST:
       return (
         <ArtistQuestionScreenWrapped
+          key={step}
           question={question}
           mistakes={mistakes}
           onAnswer={onUserAnswer}
@@ -63,6 +64,7 @@ const GameScreen = (props) => {
     case GameType.GENRE:
       return (
         <GenreQuestionScreenWrapped
+          key={step}
           question={question}
           mistakes={mistakes}
           onAnswer={onUserAnswer}
@@ -86,7 +88,11 @@ GameScreen.propTypes = {
   mistakes: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({step, mistakes, questions}) => ({step, mistakes, questions});
+const mapStateToProps = ({DATA, GAME}) => ({
+  step: GAME.step,
+  mistakes: GAME.mistakes,
+  questions: DATA.questions,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onUserAnswer: ({question, answer}) => {

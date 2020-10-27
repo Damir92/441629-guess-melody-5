@@ -1,30 +1,13 @@
-import {updateObject} from '../utils';
-import {ActionType} from './action';
-import questions from '../mocks/questions';
+import {combineReducers} from 'redux';
+import {gameData} from './reducers/game-data/game-data';
+import {gameProcess} from './reducers/game-process/game-process';
 
-const initialState = {
-  mistakes: 0,
-  step: 0,
-  questions,
+export const NameSpace = {
+  DATA: `DATA`,
+  GAME: `GAME`,
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.INCREMENT_STEP:
-      return updateObject(state, {
-        step: state.step + 1,
-      });
-
-    case ActionType.INCREMENT_MISTAKES:
-      return updateObject(state, {
-        mistakes: state.mistakes + 1,
-      });
-
-    case ActionType.RESET_GAME:
-      return updateObject({}, initialState);
-  }
-
-  return state;
-};
-
-export {reducer};
+export default combineReducers({
+  [NameSpace.DATA]: gameData,
+  [NameSpace.GAME]: gameProcess,
+});
