@@ -3,11 +3,11 @@ import {gameData} from './reducers/game-data/game-data';
 import {gameProcess} from './reducers/game-process/game-process';
 
 export const NameSpace = {
-  DATA: `DATA`,
-  GAME: `GAME`,
+  STORE_QUESTIONS: `STORE_QUESTIONS`,
+  STORE_GAME: `STORE_GAME`,
 };
 
 export default combineReducers({
-  [NameSpace.DATA]: gameData,
-  [NameSpace.GAME]: gameProcess,
+  [NameSpace.STORE_QUESTIONS]: gameData,
+  [NameSpace.STORE_GAME]: gameProcess,
 });
