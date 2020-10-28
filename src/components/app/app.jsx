@@ -1,18 +1,21 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router} from 'react-router-dom';
 
 import AuthScreen from '../auth-screen/auth-screen';
 import GameScreen from '../game-screen/game-screen';
 import GameOverScreen from '../game-over-screen/game-over-screen';
 import WelcomeScreen from '../welcome-screen/welcome-screen';
 import WinScreen from '../win-screen/win-screen';
+import PrivateRoute from '../private-route/private-route';
+
+import browserHistory from '../../browser-history';
 
 import {GameSettings} from '../../const/game-settings';
 import {Routes} from '../../const/routes';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
 
         <Route
@@ -30,16 +33,23 @@ const App = () => {
           <GameScreen />
         </Route>
 
-        <Route path={Routes.LOGIN}>
-          <AuthScreen />
-        </Route>
+        <Route path={Routes.LOGIN} component={AuthScreen}/>
 
-        <Route path={Routes.RESULT} component={WinScreen}/>
+        <PrivateRoute
+          path={`/result`}
+          render={({history}) => {
+            return (
+              <WinScreen
+                history={history}
+              />
+            );
+          }}
+        />
 
         <Route path={Routes.LOSE} component={GameOverScreen}/>
 
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
