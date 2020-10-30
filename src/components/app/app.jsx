@@ -21,10 +21,10 @@ const App = () => {
         <Route
           exact
           path={Routes.MAIN}
-          render={({history}) => (
+          render={(props) => (
             <WelcomeScreen
+              {...props}
               maxMistakes={GameSettings.MAX_MISTAKES}
-              history={history}
             />
           )}
         />
@@ -37,13 +37,7 @@ const App = () => {
 
         <PrivateRoute
           path={`/result`}
-          render={({history}) => {
-            return (
-              <WinScreen
-                history={history}
-              />
-            );
-          }}
+          render={(props) => <WinScreen {...props} />}
         />
 
         <Route path={Routes.LOSE} component={GameOverScreen}/>
