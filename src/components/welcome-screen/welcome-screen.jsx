@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {Routes} from '../../const/routes';
 
 const WelcomeScreen = ({maxMistakes, history}) => {
-
   const handlePlayButtonClick = () => {
     history.push(Routes.GAME);
   };
