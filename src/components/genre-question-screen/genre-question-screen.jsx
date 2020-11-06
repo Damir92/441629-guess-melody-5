@@ -43,7 +43,10 @@ const GenreQuestionScreen = (props) => {
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form
           className="game__tracks"
-          onSubmit={onAnswer}
+          onSubmit={(evt) => {
+            evt.preventDefault();
+            onAnswer();
+          }}
         >
           {answers.map((answer, i) => (
             <GenreQuestionItem
